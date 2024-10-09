@@ -1,0 +1,1 @@
+ttk.Label(new_tab, text=f"Nội dung của {tab_name}").grid(column=0, row=0, padx=10, pady=10)

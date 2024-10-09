@@ -1,0 +1,1 @@
+win.iconbitmap('favicon.ico')
