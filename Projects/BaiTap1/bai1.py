@@ -8,8 +8,6 @@ class OOP:
     def __init__(self):
         # Khởi tạo 
         self.win = tk.Tk()
-        # Icon cho trang 
-        self.win.iconbitmap("favicon.ico")
         # Title 
         self.win.title("Python GUI")
 
@@ -58,5 +56,6 @@ class OOP:
         tabControl.pack(expand=1, fill='both')
 
 # Chạy chương trình
-oop = OOP()
-oop.win.mainloop()
+if __name__ == "__main__":
+    app = OOP()
+    app.win.mainloop()
