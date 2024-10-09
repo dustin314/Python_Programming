@@ -1,6 +1,8 @@
 import psycopg2
 from psycopg2 import sql
 from tkinter import messagebox
+
+# Kết nối với SQL
 def connect():
     try:
         conn = psycopg2.connect(
@@ -16,16 +18,17 @@ def connect():
         messagebox.showerror("Error", f"Error connecting to database")
 
 def selectSV(cur):
-    query = sql.SQL("SELECT * FROM SinhVien")
+    query = sql.SQL("select * from sinhvien")
     cur.execute(query)
     rows = cur.fetchall()
     for row in rows:
         print(row)
 
-def insertDB(conn, MSSV, HoTen):
+# Insert sinh viên        
+def insertDB(conn, mssv, hoten):
     cur = conn.cursor()
     try:
-        cur.execute("INSERT INTO SinhVien(MSSV, HoTen) values(%s, %s)",(MSSV, HoTen))
+        cur.execute("INSERT INTO sinhvien(mssv, hoten) values(%s, %s)",(mssv, hoten))
         conn.commit()
         print("Them thanh cong")
     except Exception as ex:
