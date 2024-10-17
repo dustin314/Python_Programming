@@ -166,7 +166,7 @@ root = Tk()
 root.title("Châu Gia Kiệt")
 root.geometry("800x700")
 root.config(bg="#e0f7fa")
-root.iconbitmap("E:/Nam_III/HK241/PythonNangCao/Python_Programming/TH/TEST/celender.ico")
+# root.iconbitmap("E:/Nam_III/HK241/PythonNangCao/Python_Programming/TH/TEST/celender.ico") # Thêm icon cho trang 
 
 # Nhãn tiêu đề
 header_label = Label(root, text="Đặt Lịch Hẹn", font=("Arial", 18, "bold"), bg="#26c6da", fg="white", pady=10)
