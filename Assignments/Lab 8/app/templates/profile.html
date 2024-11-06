@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block title %}{{ user.profile.full_name or
+user.name }}'s Profile{% endblock %} {% block content %}
+<div style="display: flex; align-items: center; gap: 20px">
+  <!-- Avatar -->
+  <div style="flex-shrink: 0">
+    {% if user.profile.avatar %}
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.profile.avatar) }}"
+      alt="Avatar"
+      style="width: 150px; height: 150px; border-radius: 50%"
+    />
+    {% else %}
+    <img
+      src="{{ url_for('static', filename='default-avatar.png') }}"
+      alt="Default Avatar"
+      style="width: 150px; height: 150px; border-radius: 50%"
+    />
+    {% endif %}
+  </div>
+
+  <!-- Profile Information -->
+  <div>
+    <h1>{{ user.name }}</h1>
+    <p>
+      {{ user.profile.full_name }} from
+      <a href="#">{{ user.profile.location }}</a>
+    </p>
+    <p>{{ user.profile.bio }}</p>
+    <p>Member since {{ user.profile.join_date }}.</p>
+    <a href="{{ url_for('edit_profile') }}" class="btn">Edit Profile</a>
+
+    <!-- Profile Action Buttons -->
+    <div
+      style="display: flex; align-items: center; gap: 10px; margin-top: 20px"
+    >
+      <button
+        style="
+          background-color: #007bff;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 5px;
+          cursor: pointer;
+        "
+      >
+        Follow
+      </button>
+
+      <div style="display: flex; align-items: center; gap: 5px">
+        <span style="font-weight: bold">Followers:</span>
+        <span
+          style="
+            padding: 5px 10px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+          "
+          >{{ user.profile.followers_count }}</span
+        >
+      </div>
+
+      <div style="display: flex; align-items: center; gap: 5px">
+        <span style="font-weight: bold">Following:</span>
+        <span
+          style="
+            padding: 5px 10px;
+            background-color: #e0e0e0;
+            border-radius: 15px;
+          "
+          >{{ user.profile.following_count }}</span
+        >
+      </div>
+
+      {% if user.profile.follows_you %}
+      <div
+        style="
+          padding: 5px 10px;
+          background-color: #a0a0a0;
+          color: white;
+          border-radius: 15px;
+        "
+      >
+        Follows you
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock %}

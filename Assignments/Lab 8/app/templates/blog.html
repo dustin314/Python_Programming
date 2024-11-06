@@ -1,0 +1,128 @@
+{% extends "base.html" %} {% block title %}Blog{% endblock %} {% block content
+%}
+<h1>Hello, {{ session['user']['name'] }}!</h1>
+
+<!-- Form đăng bài mới -->
+<section id="post-section" style="margin-bottom: 20px">
+  <h2>What's on your mind?</h2>
+  <form method="POST" action="{{ url_for('blog') }}">
+    <textarea
+      name="content"
+      class="form-control"
+      rows="3"
+      placeholder="Write your post here..."
+      required
+    ></textarea>
+    <input type="hidden" name="is_comment" value="false" />
+    <button type="submit" class="btn btn-primary" style="margin-top: 10px">
+      Submit
+    </button>
+  </form>
+</section>
+
+<hr />
+
+<!-- Hiển thị bài đăng -->
+<section id="posts-list">
+  <h2>Posts</h2>
+  <div class="blog-posts">
+    {% for post in posts %}
+    <div class="post" style="border-top: 1px solid #ddd; padding: 15px 0">
+      <strong>{{ post.username }}</strong>
+      <span style="color: gray; font-size: 0.9em; float: right">
+        {{ post.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+      </span>
+      <div style="margin-top: 5px; font-size: 0.9em; color: #333">
+        {{ post.content | safe }}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<hr />
+
+<!-- Phần bình luận -->
+<section id="comments-section">
+  <h2>Comments</h2>
+
+  <!-- Form đăng bình luận mới -->
+  <form
+    method="POST"
+    action="{{ url_for('blog') }}"
+    style="margin-bottom: 20px"
+  >
+    <textarea
+      name="content"
+      class="form-control"
+      rows="2"
+      placeholder="Add a comment..."
+      required
+    ></textarea>
+    <input type="hidden" name="is_comment" value="true" />
+    <button type="submit" class="btn btn-secondary" style="margin-top: 10px">
+      Post Comment
+    </button>
+  </form>
+
+  <!-- Hiển thị danh sách bình luận với trạng thái -->
+  <div class="comments-list">
+    {% for comment in comments %}
+    <div
+      class="comment"
+      id="comment-{{ comment.id }}"
+      style="border-top: 1px solid #ddd; padding: 10px 0; opacity: {{ '1' if comment.approved else '0.5' }};"
+    >
+      <strong>{{ comment.username }}</strong>
+      <span style="color: gray; font-size: 0.8em; float: right">
+        {{ comment.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}
+      </span>
+      <p style="margin-top: 5px; font-size: 0.9em; color: #333">
+        {{ comment.content }}
+      </p>
+
+      <!-- Nút Enable và Disable chỉ hiển thị cho quản trị viên -->
+      {% if session['user']['role'] == 'admin' %}
+      <button
+        onclick="toggleCommentStatus('{{ comment.id }}', {{ 'true' if comment.approved else 'false' }})"
+        class="btn btn-link"
+        style="color: {{ 'red' if comment.approved else 'green' }}; padding: 0; font-size: 0.9em;"
+      >
+        {{ 'Disable' if comment.approved else 'Enable' }}
+      </button>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </div>
+</section>
+
+<script>
+  function toggleCommentStatus(commentId, isApproved) {
+    const url = isApproved ? "/reject_comment" : "/approve_comment";
+    fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ comment_id: commentId }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.success) {
+          const commentElement = document.getElementById(
+            `comment-${commentId}`
+          );
+          commentElement.style.opacity = data.approved ? "1" : "0.5";
+          const button = commentElement.querySelector("button");
+          button.textContent = data.approved ? "Disable" : "Enable";
+          button.style.color = data.approved ? "red" : "green";
+          button.setAttribute(
+            "onclick",
+            `toggleCommentStatus('${commentId}', ${data.approved})`
+          );
+        } else {
+          alert(data.message);
+        }
+      });
+  }
+</script>
+
+{% endblock %}

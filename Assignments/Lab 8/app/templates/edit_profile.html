@@ -1,0 +1,113 @@
+{% extends "base.html" %} {% block title %}Edit Profile{% endblock %} {% block
+content %}
+<h2 style="text-align: center; color: #333; margin-bottom: 20px">
+  Edit Profile
+</h2>
+<form
+  method="POST"
+  action="{{ url_for('edit_profile') }}"
+  enctype="multipart/form-data"
+>
+  <!-- Avatar Upload -->
+  <div class="form-group">
+    <label
+      for="avatar"
+      style="display: block; font-weight: bold; margin-bottom: 5px"
+      >Avatar</label
+    >
+    {% if user.profile.avatar %}
+    <img
+      src="{{ url_for('static', filename='uploads/' + user.profile.avatar) }}"
+      alt="Avatar"
+      style="
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      "
+    />
+    {% else %}
+    <img
+      src="{{ url_for('static', filename='default-avatar.png') }}"
+      alt="Default Avatar"
+      style="
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        margin-bottom: 10px;
+      "
+    />
+    {% endif %}
+    <input
+      type="file"
+      id="avatar"
+      name="avatar"
+      class="form-control"
+      style="margin-bottom: 15px"
+    />
+  </div>
+
+  <!-- Real Name -->
+  <div class="form-group">
+    <label
+      for="full_name"
+      style="display: block; font-weight: bold; margin-bottom: 5px"
+      >Real Name</label
+    >
+    <input
+      type="text"
+      id="full_name"
+      name="full_name"
+      value="{{ user.profile.full_name }}"
+      class="form-control"
+      required
+      style="margin-bottom: 15px"
+    />
+  </div>
+
+  <!-- Location -->
+  <div class="form-group">
+    <label
+      for="location"
+      style="display: block; font-weight: bold; margin-bottom: 5px"
+      >Location</label
+    >
+    <input
+      type="text"
+      id="location"
+      name="location"
+      value="{{ user.profile.location }}"
+      class="form-control"
+      required
+      style="margin-bottom: 15px"
+    />
+  </div>
+
+  <!-- Bio -->
+  <div class="form-group">
+    <label
+      for="bio"
+      style="display: block; font-weight: bold; margin-bottom: 5px"
+      >About Me</label
+    >
+    <textarea
+      id="bio"
+      name="bio"
+      class="form-control"
+      required
+      style="margin-bottom: 15px; height: 100px"
+    >
+{{ user.profile.bio }}</textarea
+    >
+  </div>
+
+  <!-- Submit Button -->
+  <button
+    type="submit"
+    class="btn"
+    style="width: 100%; padding: 10px; font-size: 16px"
+  >
+    Submit
+  </button>
+</form>
+{% endblock %}

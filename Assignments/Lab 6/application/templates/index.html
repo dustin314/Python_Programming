@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang chủ</title>
+
+    <!-- Liên kết tới file CSS trong thư mục static -->
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/bootstrap.min.css') }}"
+    />
+
+    <!-- Liên kết tới icon -->
+    <link rel="icon" href="{{ url_for('static', filename='img/icon.jpg') }}" />
+  </head>
+  <body>
+    <h1>Trang chủ Flask</h1>
+    <p>Đây là trang chủ với các tệp tĩnh được liên kết.</p>
+  </body>
+</html>

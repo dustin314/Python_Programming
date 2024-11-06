@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %} - Flasky</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+      }
+      .navbar {
+        background-color: #333;
+        padding: 10px 20px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .navbar a {
+        color: white;
+        text-decoration: none;
+        margin-right: 20px;
+      }
+      .content {
+        padding: 20px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+      .form-group {
+        margin-bottom: 15px;
+      }
+      .form-control {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .btn {
+        background-color: #337ab7;
+        color: white;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
+      .checkbox {
+        margin-bottom: 15px;
+      }
+      .flash-messages {
+        list-style: none;
+        padding: 0;
+      }
+      .flash-message {
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 4px;
+        background-color: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div>
+        <a href="{{ url_for('home') }}">Flasky</a>
+        <a href="{{ url_for('home') }}">Home</a>
+        {% if 'user' in session %}
+        <a href="{{ url_for('view_profile') }}">Profile</a>
+        <a href="{{ url_for('blog') }}">Blog</a>
+        {% endif %}
+      </div>
+      <div>
+        {% if 'user' in session %}
+        <a href="{{ url_for('logout') }}">Log Out</a>
+        {% else %}
+        <a href="{{ url_for('login') }}">Log In</a>
+        {% endif %}
+      </div>
+    </nav>
+
+    <div class="content">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="flash-messages">
+        {% for message in messages %}
+        <li class="flash-message">{{ message }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %} {% block content %}{% endblock %}
+    </div>
+  </body>
+</html>
