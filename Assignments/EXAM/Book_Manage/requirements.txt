@@ -1,0 +1,8 @@
+Flask==2.0.1
+Flask-Migrate==3.1.0
+werkzeug==2.0.3
+flask_sqlalchemy
+sqlalchemy==1.4.46
+flask_migrate
+flask_login
+psycopg2-binary

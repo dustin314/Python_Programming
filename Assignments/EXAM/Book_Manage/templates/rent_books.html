@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thuê Sách</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <h2 class="text-center">Danh Sách Sách Có Thể Thuê</h2>
+        <ul class="list-group mb-4">
+            {% for book in books %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ book.title }}</strong> - {{ book.author }}
+                    </div>
+                    <form action="{{ url_for('rent', book_id=book.id) }}" method="POST">
+                        <button type="submit" class="btn btn-primary btn-sm">Thuê</button>
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Quay lại</a>
+    </div>
+</body>
+</html>
