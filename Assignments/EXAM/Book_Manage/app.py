@@ -152,6 +152,7 @@ def my_rentals():
     rentals = Rental.query.filter_by(user_id=current_user.id, return_date=None).all()
     return render_template('my_rentals.html', rentals=rentals)
 
+# Route trả sách
 @app.route('/return/<int:rental_id>', methods=['POST'])
 @login_required
 def return_book(rental_id):
