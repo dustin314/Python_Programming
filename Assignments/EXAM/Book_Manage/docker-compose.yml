@@ -1,25 +1,16 @@
 version: '3.8'
-
 services:
-  web:
-    build: .
-    ports:
-      - "5000:5000"
-    environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://postgres:123456@localhost:5432/dbbook
-    depends_on:
-      - db
-    networks:
-      - app-network
-
   db:
-    image: postgres
+    image: postgres:13
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 123456
       POSTGRES_DB: dbbook
-    networks:
-      - app-network
-
-networks:
-  app-network:
+    ports:
+      - "5433:5432"
+  web:
+    build: .
+    environment:
+      SQLALCHEMY_DATABASE_URI: postgresql://postgres:123456@db:5432/dbbook
+    depends_on:
+      - db
