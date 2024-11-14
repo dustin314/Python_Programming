@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Đăng Ký</title> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light"> 
+
+    <div class="container mt-5"> 
+        <h2 class="text-center">Đăng Ký</h2> 
+
+        <!-- Form đăng ký -->
+        <form action="{{ url_for('register') }}" method="POST" class="border p-4 bg-white rounded">
+            <!-- Trường nhập tên người dùng -->
+            <div class="form-group">
+                <label for="username">Tên người dùng:</label> 
+                <input type="text" name="username" class="form-control" required> 
+            </div>
+            
+            <!-- Trường nhập email -->
+            <div class="form-group">
+                <label for="email">Email:</label> 
+                <input type="email" name="email" class="form-control" required> 
+            </div>
+            
+            <!-- Trường nhập mật khẩu -->
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label> 
+                <input type="password" name="password" class="form-control" required> 
+            </div>
+            
+            <!-- Nút submit để gửi form đăng ký -->
+            <button type="submit" class="btn btn-primary btn-block">Đăng Ký</button>
+        </form>
+    </div>
+</body>
+</html>

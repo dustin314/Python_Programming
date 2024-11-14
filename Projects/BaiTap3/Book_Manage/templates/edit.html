@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Chỉnh Sửa Sách</title> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+    <div class="container mt-5"> 
+        <h1 class="text-center mb-4">Chỉnh sửa sách</h1> 
+
+        <!-- Form gửi dữ liệu chỉnh sửa sách -->
+        <form action="{{ url_for('update_book', id=book.id) }}" method="POST" class="border p-4 bg-white rounded">
+            <div class="form-group">
+                <label for="title">Tên sách:</label>
+                <input type="text" name="title" value="{{ book.title }}" class="form-control" required> 
+            </div>
+            
+            <div class="form-group">
+                <label for="author">Tác giả:</label> 
+                <input type="text" name="author" value="{{ book.author }}" class="form-control" required> 
+            </div>
+
+            <div class="form-group">
+                <label for="published_year">Năm xuất bản:</label>
+                <input type="number" name="published_year" value="{{ book.published_year }}" class="form-control" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="description">Mô tả:</label> 
+                <textarea name="description" class="form-control">{{ book.description }}</textarea> 
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-block">Cập Nhập</button>
+        </form>
+        
+        <!-- Liên kết quay lại trang chủ -->
+        <div class="text-center mt-3">
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Quay lại</a>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

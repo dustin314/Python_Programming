@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"> 
+    <title>Sách Đã Thuê</title> 
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light"> 
+
+    <div class="container mt-5"> 
+        <h2 class="text-center">Sách Đã Thuê</h2> 
+
+        <!-- Danh sách sách đã thuê -->
+        <ul class="list-group mb-4">
+            {% for rental in rentals %} 
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        <strong>{{ rental.book.title }}</strong> - {{ rental.book.author }} 
+                        <br>Ngày thuê: {{ rental.rental_date.strftime('%Y-%m-%d') }} 
+                    </div>
+                    <!-- Form trả sách -->
+                    <form action="{{ url_for('return_book', rental_id=rental.id) }}" method="POST">
+                        <button type="submit" class="btn btn-danger btn-sm">Trả Sách</button> 
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+
+        <!-- Nút quay lại trang chủ -->
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Quay lại</a>
+    </div>
+</body>
+</html>
