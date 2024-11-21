@@ -1,4 +1,5 @@
 # Thêm các thư viện cần thiết 
+
 import tkinter as tk 
 from tkinter import ttk 
 from tkinter import Menu 
@@ -26,9 +27,26 @@ class OOP:
         menu_bar.add_cascade(label="File", menu=file_menu) # Tạo ra menu thứ nhất
         # Các mục con
         file_menu.add_command(label="New", command=self.create_new_tab)  # Tạo thêm tab mới
+        file_menu.add_command(label="Save")
         file_menu.add_separator() # Gạch chân nét liền 
         file_menu.add_command(label="Exit", command=self._msgExit) # Thoát khỏi chương trình
 
+        #Edit menu
+        edit_menu = Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="Edit", menu=edit_menu)
+        # Các mục con
+        edit_menu.add_command(label="Undo")
+        edit_menu.add_command(label="Copy")
+        edit_menu.add_command(label="Paste")
+        edit_menu.add_command(label="Cut")
+        
+        # View menu 
+        view_menu = Menu(menu_bar, tearoff=0)
+        menu_bar.add_cascade(label="View", menu=view_menu)
+        # Các mục con 
+        view_menu.add_command(label="Zoom in")
+        view_menu.add_command(label="Zoom out")
+        
         # Help menu
         help_menu = Menu(menu_bar, tearoff=0)
         menu_bar.add_cascade(label="Help", menu=help_menu)
